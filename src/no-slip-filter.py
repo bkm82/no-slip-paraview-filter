@@ -1,10 +1,9 @@
-#This filter applies a zero slip boundary condition to a velocity profile. 
-#Inputs needed are a volume mesh with the velocity profile and a surface mesh that you would like to set the surface to zero
-#It is required that the mesh points on the surface of the volume mesh line up exactly with the points of the surface mesh.
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
-
+#This filter applies a no slip boundary condition to a velocity profile. 
+#Inputs needed are a volume mesh with the velocity profile and a surface mesh that you would like to set the surface to zero
+#It is required that the mesh points on the surface of the volume mesh line up exactly with the points of the surface mesh.
 from vtkmodules.vtkCommonDataModel import vtkDataSet
 from vtkmodules.util.vtkAlgorithm import VTKPythonAlgorithmBase
 from vtkmodules.numpy_interface import dataset_adapter as dsa
@@ -12,21 +11,13 @@ from paraview.util.vtkAlgorithm import smproxy, smproperty, smdomain
 import numpy as np
 
 
-@smproxy.filter(label="Zero-Slip Filter")
-
-@smproperty.input(name="Input 2", port_index=1)
-@smproperty.input(name="Input 1", port_index=0)
-#@smproperty.input(name="Wall")
-class ZeroSlipFilter(VTKPythonAlgorithmBase):
+@smproxy.filter(label="No-Slip Filter")
+@smproperty.input(name="Wall Mesh", port_index=1)
+@smproperty.input(name="Volume Mesh", port_index=0)
+class NoSlipFilter(VTKPythonAlgorithmBase):
     def __init__(self):
         VTKPythonAlgorithmBase.__init__(self, nInputPorts=2, nOutputPorts=1,outputType='vtkUnstructuredGrid')
 
-    #def SetInputConnection(self, port, input_connection):
-    #    self.SetInputConnection(port, input_connection)
-
-    #@smproperty.input(name="Input 2", port_index=1)
-    #def SetInputConnection2(self, port, input_connection):
-    #    self.SetInputConnection(port, input_connection)
 
     def RequestData(self, request, inInfo, outInfo):
         # get the first input.
@@ -52,5 +43,5 @@ class ZeroSlipFilter(VTKPythonAlgorithmBase):
         # add to output
         output = dsa.WrapDataObject(vtkDataSet.GetData(outInfo, 0))
         output.ShallowCopy(Volume_Input.VTKObject)
-        output.PointData.append(velocity, "Velocity_Zero_Slip");
+        output.PointData.append(velocity, "Velocity_No_Slip");
         return 1
