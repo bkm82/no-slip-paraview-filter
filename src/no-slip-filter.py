@@ -1,5 +1,5 @@
 import logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 
 #This filter applies a no slip boundary condition to a velocity profile. 
 #Inputs needed are a volume mesh with the velocity profile and a surface mesh that you would like to set the surface to zero
@@ -20,10 +20,10 @@ class NoSlipFilter(VTKPythonAlgorithmBase):
 
 
     def RequestData(self, request, inInfo, outInfo):
-        # get the first input.
+        # get the input data
         Volume_Input =  dsa.WrapDataObject(vtkDataSet.GetData(inInfo[0]))
-        logging.debug(f'Volume Input Shape {np.shape(Volume_Input)}')
         Wall_Input = dsa.WrapDataObject(vtkDataSet.GetData(inInfo[1]))
+        
         # Find all of the points in the volume mesh that are on the surface mesh by first finding all of the
         # Points in the Volume_Input that are also in Wall_Input. This will create a mask vector that is the 
         # same number of rows as the Volume input. If that point is on the surface it will be True, else false
@@ -34,7 +34,6 @@ class NoSlipFilter(VTKPythonAlgorithmBase):
 
         #Get the velocity from the volume input mesh
         velocity = Volume_Input.PointData['Velocity']
-        logging.debug(mask)
         velocity[np.where(mask),:] = 0 #For rows that are on the surface, set all of the velocity columns to zero
         
         logging.debug(f'Input Velocity Shape {np.shape(velocity)}')
