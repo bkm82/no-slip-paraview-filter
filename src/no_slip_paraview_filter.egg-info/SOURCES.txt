@@ -1,0 +1,14 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+src/no_slip_paraview_filter.egg-info/PKG-INFO
+src/no_slip_paraview_filter.egg-info/SOURCES.txt
+src/no_slip_paraview_filter.egg-info/dependency_links.txt
+src/no_slip_paraview_filter.egg-info/not-zip-safe
+src/no_slip_paraview_filter.egg-info/requires.txt
+src/no_slip_paraview_filter.egg-info/top_level.txt
+src/noslipfilter/__init__.py
+src/noslipfilter/no_slip_filter.py
+test/test_no_slip_filter.py

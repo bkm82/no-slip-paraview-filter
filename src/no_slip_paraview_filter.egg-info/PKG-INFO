@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: no-slip-paraview-filter
+Version: 0.0.0
+Summary: A filter for paraview to enforce a no-slip boundary condition at a surface
+Home-page: UNKNOWN
+Author: Bray Moll
+License: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.9
+Provides-Extra: testing
+License-File: LICENSE
+
+UNKNOWN
+

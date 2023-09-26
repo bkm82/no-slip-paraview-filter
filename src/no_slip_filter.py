@@ -52,5 +52,5 @@ class NoSlipFilter(VTKPythonAlgorithmBase):
         # add to output
         output = dsa.WrapDataObject(vtkDataSet.GetData(outInfo, 0))
         output.ShallowCopy(Volume_Input.VTKObject)
-        output.PointData.append(velocity, "Velocity_No_Slip");
+        output.PointData.append(velocity, "Velocity_No_Slip")
         return 1
