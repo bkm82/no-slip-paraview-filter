@@ -87,7 +87,7 @@ class NoSlipFilter(VTKPythonAlgorithmBase):
         Volume_Input = dsa.WrapDataObject(vtkDataSet.GetData(inInfo[0]))
         Wall_Input = dsa.WrapDataObject(vtkDataSet.GetData(inInfo[1]))
         mask = Create_Mask(Volume_Input, Wall_Input)
-        Set_Velocity(mask, Volume_Input, set_velocity=5)
+        Set_Velocity(mask, Volume_Input, set_velocity=0)
         # add to output
         output = dsa.WrapDataObject(vtkDataSet.GetData(outInfo, 0))
         output.ShallowCopy(Volume_Input.VTKObject)
